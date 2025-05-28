@@ -12,19 +12,17 @@ Ensure these are installed:
 - Bash (Linux/macOS or Git Bash for Windows)
 
 
-## Getting Started   
+## Getting Started
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/HrishikeshSDarade/DevOpsTasks.git
    cd Task1
    ```
 
-2. **Navigate to the script directory**:
-    ```bash
-    cd script
-    ```
-    IN the script directory, you will find the `deploy.sh` file which contains the deployment script.
-    🔐 Note: Before running the script, ensure your Docker CLI is logged in using:
+2. **Update the `deploy.sh` script**:
+    In the `Task1` directory, you will find the `deploy.sh` file which contains the deployment script.
+
+    Note: Before running the script, ensure your Docker CLI is logged in using:
     ```bash
     docker login
     ```
@@ -62,7 +60,7 @@ Ensure these are installed:
     Maintain this terminal open to keep the service running.
     Open a new terminal to test the service.
 
-## 🧪 Testing the Service
+##  Testing the Service
 You can test the /submit endpoint using curl or a web browser:
 ```bash
 curl -X GET <service-url>/submit
@@ -73,7 +71,12 @@ Example:
 ```bash
 curl -X GET http://127.0.0.1:32658/submit
 ```
-
+Hit the endpoint more than 5 times from the same IP to see the rate limiting in action. After 5 requests, you should receive a response:
+```json
+{
+    "error": "Rate limit exceeded. Try again later."
+}
+```
 
 ## Cleanup
 To clean up the resources created by the deployment script, you can run:
