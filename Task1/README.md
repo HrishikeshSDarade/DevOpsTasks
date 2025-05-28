@@ -20,6 +20,7 @@ Ensure these are installed:
    ```
 
 2. **Update the `deploy.sh` script**:
+
     In the `Task1` directory, you will find the `deploy.sh` file which contains the deployment script.
 
     Note: Before running the script, ensure your Docker CLI is logged in using:
