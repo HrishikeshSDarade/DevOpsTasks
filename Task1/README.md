@@ -19,40 +19,59 @@ Ensure these are installed:
    cd Task1
    ```
 
-2. **Update the `deploy.sh` script**:
 
-    In the `Task1` directory, you will find the `deploy.sh` file which contains the deployment script.
+2. **Configure Docker Hub Username for `deploy.sh`**:
 
-    Note: Before running the script, ensure your Docker CLI is logged in using:
+    The `deploy.sh` script needs your Docker Hub username to tag and push the container image. It can be configured in one of two ways:
+    *   **Environment Variable (Recommended):** Set the `DOCKERHUB_USERNAME` environment variable before running the script:
+        ```bash
+        export DOCKERHUB_USERNAME="your_dockerhub_username"
+        ```
+    *   **Interactive Prompt:** If the `DOCKERHUB_USERNAME` environment variable is not set, the script will prompt you to enter your Docker Hub username when you run it.
+
+    Note: Before running the script, ensure your Docker CLI is logged in:
     ```bash
     docker login
     ```
-    You need to replace the `DOCKERHUB_USERNAME` with your Docker Hub credentials in the script.
 
-3. **Make the script executable**:
+3. **Update Kubernetes Deployment Configuration**:
+
+    You *must* edit the Kubernetes deployment file `Task1/kubernetes/deployment.yaml` before deploying.
+    Locate the following line:
+    ```yaml
+    image: YOUR_DOCKERHUB_USERNAME/rate-limiter:latest
+    ```
+    Replace `YOUR_DOCKERHUB_USERNAME` with your actual Docker Hub username. For example, if your username is `hrishidarade`, the line should look like:
+    ```yaml
+    image: hrishidarade/rate-limiter:latest
+    ```
+    This change is crucial for Kubernetes to pull the correct Docker image from your repository.
+
+
+4. **Make the script executable**:
     ```bash
     chmod +x deploy.sh
     ```
 
-4. **Start minikube**:
+5. **Start minikube**:
    ```bash
    minikube start --driver=docker
    ```
 
-5. **Run the deployment script**:
+6. **Run the deployment script**:
    ```bash
     ./deploy.sh
     ```
     This script will build the Docker image, push it to Docker Hub, and deploy it to Minikube.
 
-6. **Check the deployment status**:
+7. **Check the deployment status**:
     After running the script, you can check the status of the deployment using:
     ```bash
     kubectl get pods
     ```
     This will show you the status of the pods. Ensure that the pod is in the `Running` state.
 
-7. **Access the service**:
+8. **Access the service**:
     After the deployment, you can access the service using the service url and the exposed port. Run:
     ```bash
     minikube service rate-limiter-service --url
@@ -65,7 +84,6 @@ Ensure these are installed:
 You can test the /submit endpoint using curl or a web browser:
 ```bash
 curl -X GET <service-url>/submit
-curl -X POST <service-url>/submit
 ```
 Example:
 

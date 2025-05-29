@@ -10,7 +10,7 @@ request_counts = {}
 RATE_LIMIT = 5  # requests
 TIME_WINDOW = 60  # seconds
 
-@app.route('/submit', methods=['GET', 'POST'])
+@app.route('/submit', methods=['GET'])
 def submit():
     client_ip = request.remote_addr
     current_time = time.time()

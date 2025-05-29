@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rate-limiter
-        image: hrishidarade/rate-limiter:latest
+        image: hrishidarade/rate-limiter:latest # replace with your username/rate-limiter:latest
         ports:
         - containerPort: 5000
         resources:
