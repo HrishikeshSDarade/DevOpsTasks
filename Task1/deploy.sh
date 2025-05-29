@@ -4,15 +4,14 @@ set -e
 
 if [ -z "$DOCKERHUB_USERNAME" ]; then
     read -p "Enter your Docker Hub username: " DOCKERHUB_USERNAME
-else
-    DOCKER_USERNAME="$DOCKERHUB_USERNAME"
 fi
 
-if [ -z "$DOCKERHUB_USERNAME" ]; then
+DOCKER_USERNAME="$DOCKERHUB_USERNAME"
+
+if [ -z "$DOCKER_USERNAME" ]; then
     echo "Docker Hub username is required. Exiting."
     exit 1
 fi
-
 
 IMAGE_NAME="rate-limiter"
 IMAGE_TAG="latest"
