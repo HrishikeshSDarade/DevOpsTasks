@@ -14,9 +14,14 @@ spec:
     spec:
       containers:
       - name: rate-limiter
-        image: hrishidarade/rate-limiter:latest # replace with your username/rate-limiter:latest
+        image: hrishidarade/rate-limiter:latest
         ports:
         - containerPort: 5000
+        env:
+        - name: REDIS_HOST
+          value: "redis-service"
+        - name: REDIS_PORT
+          value: "6379"
         resources:
           limits:
             memory: "128Mi"

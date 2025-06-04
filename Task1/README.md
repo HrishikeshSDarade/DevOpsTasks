@@ -80,7 +80,7 @@ Ensure these are installed:
     Maintain this terminal open to keep the service running.
     Open a new terminal to test the service.
 
-##  Testing the Service
+##  Testing the Service manually
 You can test the /submit endpoint using curl or a web browser:
 ```bash
 curl -X GET <service-url>/submit
@@ -96,12 +96,26 @@ Hit the endpoint more than 5 times from the same IP to see the rate limiting in 
     "error": "Rate limit exceeded. Try again later."
 }
 ```
+## Testing with test script
+You can also use the provided `test.sh` script to test the rate limiter service.
+Make the script executable:
+```bash
+chmod +x test.sh
+```
+Run the script:
+```bash
+./test.sh
+```
+The test script will send 10 requests from the same IP to demonstrate rate limiting.
+
 
 ## Cleanup
 To clean up the resources created by the deployment script, you can run:
 ```bash
 kubectl delete deployment rate-limiter
+kubectl delete deployment redis
 kubectl delete service rate-limiter-service
+kubectl delete service redis-service
 minikube stop
 ```
 
